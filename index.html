@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compress images for student forms quickly and privately.">
+  <title>FormSnap — Image Compressor</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <a href="#" class="logo">Form<span>Snap</span></a>
+    <p>Made for students 🎓</p>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">YOUR IMAGE, YOUR SIZE</p>
+      <h1>Images ready for <span>every form.</span></h1>
+      <p class="subtitle">
+        Compress your images to fit application forms,
+        college admissions, and online uploads.
+      </p>
+      <p class="privacy">🔒 Your images stay on your device.</p>
+    </section>
+
+    <section class="compressor">
+      <div class="upload-area" id="upload-area">
+        <div class="upload-icon">↑</div>
+        <h2>Drop your image here</h2>
+        <p>or choose a file from your device</p>
+
+        <label for="file-input" class="upload-button">
+          Choose Image
+        </label>
+
+        <input
+          type="file"
+          id="file-input"
+          accept="image/jpeg,image/png,image/webp"
+          hidden
+        >
+
+        <p class="file-hint">JPG, PNG or WebP · Maximum 15 MB</p>
+      </div>
+
+      <p id="error-message" class="error-message" role="alert" hidden></p>
+      <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+
+      <div id="editor" hidden>
+        <div class="preview-container">
+          <img id="image-preview" alt="Selected image preview">
+        </div>
+
+        <p id="image-info" class="image-info"></p>
+        <button id="remove-image-button" class="remove-button" type="button">✕ Remove image</button>
+
+        <label for="target-size" class="field-label">
+          Target image size
+        </label>
+
+        <select id="target-size">
+          <option value="51200">50 KB</option>
+          <option value="102400" selected>100 KB</option>
+          <option value="204800">200 KB</option>
+        </select>
+
+        <div class="size-comparison">
+          <div class="size-card">
+            <p>Original size</p>
+            <strong id="original-size">—</strong>
+          </div>
+
+          <div class="size-card">
+            <p>Compressed size</p>
+            <strong id="compressed-size">Not compressed</strong>
+          </div>
+        </div>
+
+        <p id="compression-result" aria-live="polite"></p>
+
+        <button id="compress-button" class="primary-button" type="button">
+          Compress Image
+        </button>
+
+        <a id="download-button" class="download-button" hidden>
+          Download Image
+        </a>
+
+<div class="tool-divider"></div>
+
+<section class="extra-tools" aria-labelledby="tools-heading">
+  <h2 id="tools-heading">More image tools</h2>
+  <p class="tools-description">
+    Convert formats or resize your image right in your browser.
+  </p>
+
+  <label class="field-label" for="output-format">
+    Convert image to
+  </label>
+  <select id="output-format">
+    <option value="image/jpeg">JPG</option>
+    <option value="image/png">PNG</option>
+    <option value="image/webp">WebP</option>
+  </select>
+
+  <div class="resize-heading">
+    <label class="field-label" for="resize-width">
+      Resize image (pixels)
+    </label>
+    <label class="ratio-option">
+      <input id="keep-ratio" type="checkbox" checked>
+      Keep aspect ratio
+    </label>
+  </div>
+
+  <div class="dimension-fields">
+    <div>
+      <label class="small-label" for="resize-width">Width</label>
+      <input id="resize-width" type="number" min="1" max="12000" step="1">
+    </div>
+    <div>
+      <label class="small-label" for="resize-height">Height</label>
+      <input id="resize-height" type="number" min="1" max="12000" step="1">
+    </div>
+  </div>
+
+  <button id="transform-button" class="primary-button" type="button">
+    Convert / Resize Image
+  </button>
+
+  <p id="transformation-result" aria-live="polite"></p>
+</section>
+
+      </div>
+    </section>
+
+    <footer>
+      <p>Free to use. No account. No image uploads to a server.</p>
+    </footer>
+  </main>
+</body>
+</html>

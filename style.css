@@ -1,0 +1,485 @@
+
+/* 1. Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #5b5ce2;
+  --primary-dark: #4546c5;
+  --background: #f6f7fc;
+  --surface: #ffffff;
+  --text: #20223a;
+  --muted: #777b91;
+  --border: #e3e5f0;
+  --success: #16865c;
+  --danger: #d9364f;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* 2. Navigation */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  color: var(--text);
+  font-size: 25px;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: var(--primary);
+}
+
+.navbar p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* 3. Main layout */
+.container {
+  width: min(100% - 32px, 760px);
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  padding: 58px 0 32px;
+}
+
+.eyebrow {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 6vw, 46px);
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+
+.hero h1 span {
+  color: var(--primary);
+}
+
+.subtitle {
+  max-width: 510px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.privacy {
+  margin-top: 18px;
+  color: var(--success);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* 4. Main compressor card */
+.compressor {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 12px 40px rgba(32, 34, 58, 0.05);
+  margin-bottom: 35px;
+}
+
+/* 5. Upload area */
+.upload-area {
+  text-align: center;
+  padding: 35px 16px;
+  border: 2px dashed #c9c9f2;
+  border-radius: 14px;
+  background: #fafaff;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.upload-area.dragging {
+  background: #eeeeff;
+  border-color: var(--primary);
+}
+
+.upload-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 14px;
+  background: #e9e9ff;
+  color: var(--primary);
+  border-radius: 16px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.upload-area h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.upload-area > p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.upload-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 11px 23px;
+  background: var(--primary);
+  color: white;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.upload-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.upload-area .file-hint {
+  margin-top: 15px;
+  font-size: 12px;
+}
+
+/* 6. Preview */
+#editor {
+  margin-top: 25px;
+}
+
+.preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background: #f8f9fd;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-height: 150px;
+  margin-bottom: 12px;
+}
+
+#image-preview {
+  display: block;
+  max-width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.image-info {
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* 7. Form controls */
+.field-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+#target-size {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: white;
+  color: var(--text);
+  font: inherit;
+  margin-bottom: 22px;
+  cursor: pointer;
+}
+
+#target-size:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* 8. Before-and-after sizes */
+.size-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.size-card {
+  padding: 16px;
+  background: #f8f9fd;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+
+.size-card p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.size-card strong {
+  font-size: 19px;
+}
+
+/* 9. Buttons */
+.primary-button,
+.download-button {
+  display: block;
+  width: 100%;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 9px;
+  text-align: center;
+  text-decoration: none;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.primary-button {
+  background: var(--primary);
+  color: white;
+}
+
+.primary-button:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+
+.primary-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.download-button {
+  margin-top: 12px;
+  background: #e7f8ef;
+  color: #147448;
+  border: 1px solid #b8e8ce;
+}
+
+.download-button:hover {
+  background: #d4f2e1;
+}
+
+/* 10. Status and errors */
+.error-message {
+  margin-top: 14px;
+  padding: 11px 13px;
+  color: var(--danger);
+  background: #fff0f2;
+  border: 1px solid #ffd2d9;
+  border-radius: 9px;
+  font-size: 13px;
+}
+
+.status-message {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+#compression-result {
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+/* 11. Footer */
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 0 0 28px;
+}
+
+/* 12. Keyboard accessibility */
+button:focus-visible,
+a:focus-visible,
+.upload-button:focus-visible {
+  outline: 3px solid #9b9cff;
+  outline-offset: 3px;
+}
+
+/* 13. Mobile responsiveness */
+@media (max-width: 520px) {
+  .navbar {
+    padding: 16px 20px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .navbar p {
+    font-size: 12px;
+  }
+
+  .hero {
+    padding-top: 40px;
+  }
+
+  .hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .compressor {
+    padding: 16px;
+    border-radius: 15px;
+  }
+
+  .upload-area {
+    padding: 28px 10px;
+  }
+
+  .upload-area h2 {
+    font-size: 18px;
+  }
+
+  .size-card {
+    padding: 12px;
+  }
+
+  .size-card strong {
+    font-size: 16px;
+  }
+}
+/* Remove selected image */
+.remove-button {
+  display: block;
+  margin: 0 auto 24px;
+  padding: 9px 16px;
+  border: 1px solid #ffd2d9;
+  border-radius: 8px;
+  background: #fff0f2;
+  color: #d9364f;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background: #ffe1e6;
+}
+
+.remove-button:focus-visible {
+  outline: 3px solid #ff9aaa;
+  outline-offset: 3px;
+}
+
+/* Additional image tools */
+.tool-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 28px 0;
+}
+
+.extra-tools h2 {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.tools-description {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+#output-format,
+.dimension-fields input {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: white;
+  color: var(--text);
+  font: inherit;
+}
+
+#output-format {
+  margin-bottom: 20px;
+}
+
+.resize-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ratio-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.dimension-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.small-label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+#transformation-result {
+  font-size: 13px;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+
+#transform-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+@media (max-width: 380px) {
+  .dimension-fields {
+    grid-template-columns: 1fr;
+  }
+}
