@@ -823,14 +823,61 @@ button:disabled {
   flex: 1 1 170px;
 }
 
+
+/* Premium Download Image button */
 #download-button {
-  background: linear-gradient(110deg, #0f9f87, #17bca5);
-  box-shadow: 0 8px 18px rgba(19, 184, 166, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 24px;
+
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.22);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
 }
 
 #download-button:hover:not(:disabled) {
-  box-shadow: 0 12px 24px rgba(19, 184, 166, 0.28);
+  background: linear-gradient(135deg, #4f46e5, #4338ca);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(79, 70, 229, 0.3);
 }
+
+#download-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.2);
+}
+
+#download-button:focus-visible {
+  outline: 3px solid rgba(99, 102, 241, 0.4);
+  outline-offset: 3px;
+}
+
+#download-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
 
 /* Feature strip and footer */
 
