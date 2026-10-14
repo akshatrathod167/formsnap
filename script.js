@@ -569,3 +569,66 @@ keepRatio.addEventListener("change", () => {
 
 console.log("FormSnap conversion and resizing tools initialized.");
 
+/* =========================================
+   FORMSNAP — LIGHT / DARK THEME TOGGLE
+   ========================================= */
+
+const themeToggle = document.querySelector("#theme-toggle");
+const themeIcon = document.querySelector("#theme-icon");
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+
+  if (themeIcon) {
+    themeIcon.textContent = theme === "dark" ? "☀️" : "🌙";
+  }
+
+  if (themeToggle) {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+
+    themeToggle.setAttribute(
+      "aria-label",
+      `Switch to ${nextTheme} mode`
+    );
+
+    themeToggle.setAttribute(
+      "title",
+      `Switch to ${nextTheme} mode`
+    );
+  }
+
+  try {
+    localStorage.setItem("formsnap-theme", theme);
+  } catch (error) {
+    // The theme still works if browser storage is unavailable.
+  }
+}
+
+if (themeToggle) {
+  let savedTheme = null;
+
+  try {
+    savedTheme = localStorage.getItem("formsnap-theme");
+  } catch (error) {
+    // Fall back to the theme already set on the page.
+  }
+
+  const currentTheme =
+    document.documentElement.getAttribute("data-theme") || "light";
+
+  const initialTheme =
+    savedTheme === "light" || savedTheme === "dark"
+      ? savedTheme
+      : currentTheme;
+
+  applyTheme(initialTheme);
+
+  themeToggle.addEventListener("click", () => {
+    const current =
+      document.documentElement.getAttribute("data-theme");
+
+    applyTheme(current === "dark" ? "light" : "dark");
+  });
+}
+
+

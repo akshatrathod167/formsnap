@@ -1,146 +1,256 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Compress images for student forms quickly and privately.">
-  <title>FormSnap — Image Compressor</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <meta name="theme-color" content="#f8f7ff">
+  <meta
+    name="description"
+    content="Meet FormSnap — a free, browser-based image compressor, resizer, and format converter built with AI-assisted development."
+  >
+  <title>FormSnap — Images, Simplified.</title>
+
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("formsnap-theme");
+      const preferredTheme = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches ? "dark" : "light";
+
+      document.documentElement.dataset.theme =
+        savedTheme === "dark" || savedTheme === "light"
+          ? savedTheme
+          : preferredTheme;
+    } catch (error) {
+      // Keep the default light theme if storage is unavailable.
+    }
+  </script>
+
+  <link rel="stylesheet" href="landing.css">
+  <script src="landing.js" defer></script>
 </head>
+
 <body>
-  <header class="navbar">
-    <a href="#" class="logo">Form<span>Snap</span></a>
-    <p>Made for students 🎓</p>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="FormSnap home">
+      <span class="brand-icon">F</span>
+      <span>Form<span class="brand-accent">Snap</span></span>
+    </a>
+
+    <nav class="nav-actions" aria-label="Main navigation">
+      <a class="nav-about" href="#story">Our story</a>
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        type="button"
+        aria-label="Switch theme"
+        title="Switch theme"
+      >
+        <span id="theme-icon" aria-hidden="true">🌙</span>
+      </button>
+      <a class="button button-small button-primary" href="editor.html">
+        Try FormSnap <span aria-hidden="true">↗</span>
+      </a>
+    </nav>
   </header>
 
-  <main class="container">
+  <main>
     <section class="hero">
-      <p class="eyebrow">YOUR IMAGE, YOUR SIZE</p>
-      <h1>Images ready for <span>every form.</span></h1>
-      <p class="subtitle">
-        Compress your images to fit application forms,
-        college admissions, and online uploads.
+      <div class="eyebrow">
+        <span class="live-dot"></span>
+        A small idea. A real product.
+      </div>
+
+      <h1>
+        Your images.<br>
+        <span class="gradient-text">Your rules.</span>
+      </h1>
+
+      <p class="hero-description">
+        Compress, resize, and convert images without the unnecessary
+        complexity. Free to use, simple by design, and built to keep
+        your images on your device.
       </p>
-      <p class="privacy">🔒 Your images stay on your device.</p>
-    </section>
 
-    <section class="compressor">
-      <div class="upload-area" id="upload-area">
-        <div class="upload-icon">↑</div>
-        <h2>Drop your image here</h2>
-        <p>or choose a file from your device</p>
-
-        <label for="file-input" class="upload-button">
-          Choose Image
-        </label>
-
-        <input
-          type="file"
-          id="file-input"
-          accept="image/jpeg,image/png,image/webp"
-          hidden
-        >
-
-        <p class="file-hint">JPG, PNG or WebP · Maximum 15 MB</p>
+      <div class="hero-actions">
+        <a class="button button-primary button-large" href="editor.html">
+          Try FormSnap <span aria-hidden="true">→</span>
+        </a>
+        <a class="button button-secondary button-large" href="#story">
+          Discover our story
+        </a>
       </div>
 
-      <p id="error-message" class="error-message" role="alert" hidden></p>
-      <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+      <div class="trust-row">
+        <span><span class="check">✓</span> Free to use</span>
+        <span><span class="check">✓</span> Browser-based processing</span>
+        <span><span class="check">✓</span> No paid API required</span>
+      </div>
 
-      <div id="editor" hidden>
-        <div class="preview-container">
-          <img id="image-preview" alt="Selected image preview">
+      <div class="product-window" aria-label="FormSnap product preview">
+        <div class="window-top">
+          <div class="window-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="window-label">formsnap / image workspace</span>
+          <span class="window-status"><span></span> Ready</span>
         </div>
 
-        <p id="image-info" class="image-info"></p>
-        <button id="remove-image-button" class="remove-button" type="button">✕ Remove image</button>
-
-        <label for="target-size" class="field-label">
-          Target image size
-        </label>
-
-        <select id="target-size">
-          <option value="51200">50 KB</option>
-          <option value="102400" selected>100 KB</option>
-          <option value="204800">200 KB</option>
-        </select>
-
-        <div class="size-comparison">
-          <div class="size-card">
-            <p>Original size</p>
-            <strong id="original-size">—</strong>
+        <div class="mock-workspace">
+          <div class="mock-sidebar">
+            <div class="mock-logo">F</div>
+            <div class="mock-nav active"><span>▧</span> Image tools</div>
+            <div class="mock-nav"><span>⌁</span> Resize</div>
+            <div class="mock-nav"><span>⇄</span> Convert</div>
+            <div class="mock-private">
+              <span>🔒</span>
+              <strong>Your files stay yours.</strong>
+              <small>Processing happens in your browser.</small>
+            </div>
           </div>
 
-          <div class="size-card">
-            <p>Compressed size</p>
-            <strong id="compressed-size">Not compressed</strong>
+          <div class="mock-main">
+            <div class="mock-heading">
+              <div>
+                <span class="mock-kicker">YOUR WORKSPACE</span>
+                <h2>Make images lighter.</h2>
+                <p>Everything you need. Nothing you don't.</p>
+              </div>
+              <span class="mock-badge">100 KB target</span>
+            </div>
+
+            <div class="mock-upload">
+              <div class="mock-upload-icon">↑</div>
+              <strong>Your next image goes here</strong>
+              <span>Drag, drop, or choose a file in the editor</span>
+              <span class="mock-file-types">JPG · PNG · WEBP</span>
+            </div>
+
+            <div class="mock-settings">
+              <div>
+                <span>COMPRESSION TARGET</span>
+                <strong>100 KB</strong>
+              </div>
+              <div>
+                <span>OUTPUT FORMAT</span>
+                <strong>WebP ↘</strong>
+              </div>
+              <div>
+                <span>PROCESSING</span>
+                <strong class="local-status">● Local</strong>
+              </div>
+            </div>
           </div>
         </div>
-
-        <p id="compression-result" aria-live="polite"></p>
-
-<div class="tool-divider"></div>
-
-<section class="extra-tools" aria-labelledby="tools-heading">
-  <h2 id="tools-heading">More image tools</h2>
-  <p class="tools-description">
-    Convert formats or resize your image right in your browser.
-  </p>
-
-  <label class="field-label" for="output-format">
-    Convert image to
-  </label>
-  <select id="output-format">
-    <option value="image/jpeg">JPG</option>
-    <option value="image/png">PNG</option>
-    <option value="image/webp">WebP</option>
-  </select>
-
-  <div class="resize-heading">
-    <label class="field-label" for="resize-width">
-      Resize image (pixels)
-    </label>
-    <label class="ratio-option">
-      <input id="keep-ratio" type="checkbox" checked>
-      Keep aspect ratio
-    </label>
-  </div>
-
-  <div class="dimension-fields">
-    <div>
-      <label class="small-label" for="resize-width">Width</label>
-      <input id="resize-width" type="number" min="1" max="12000" step="1">
-    </div>
-    <div>
-      <label class="small-label" for="resize-height">Height</label>
-      <input id="resize-height" type="number" min="1" max="12000" step="1">
-    </div>
-  </div>
-
-  
-
-  <p id="transformation-result" aria-live="polite"></p>
-</section>
-
-<!-- Buttons at the bottom of all settings -->
-<div class="action-buttons">
-  <button id="compress-button" class="primary-button" type="button">
-    Apply Changes
-  </button>
-
-  <a id="download-button" class="download-button" hidden>
-    Download Image
-  </a>
-</div>
-
+        <div class="window-caption">
+          A glimpse of the workspace. Your actual editor is one click away.
+        </div>
       </div>
     </section>
 
-    <footer>
-      <p>Free to use. No account. No image uploads to a server.</p>
-    </footer>
+    <section class="benefits section-wrap" aria-label="Product benefits">
+      <article class="benefit-card">
+        <span class="benefit-icon purple">✳</span>
+        <h3>Simple by design</h3>
+        <p>Useful image tools without a confusing workflow.</p>
+      </article>
+      <article class="benefit-card">
+        <span class="benefit-icon teal">⌁</span>
+        <h3>Privacy-minded</h3>
+        <p>Image processing happens locally in your browser.</p>
+      </article>
+      <article class="benefit-card">
+        <span class="benefit-icon pink">↗</span>
+        <h3>Built to learn</h3>
+        <p>A real-world project shaped through building and iteration.</p>
+      </article>
+    </section>
+
+    <section class="story section-wrap" id="story">
+      <div class="story-label">
+        <span class="story-line"></span>
+        BEHIND THE BUILD
+      </div>
+
+      <div class="story-grid">
+        <div>
+          <h2>
+            Not just another tutorial.<br>
+            <span class="gradient-text">An idea made real.</span>
+          </h2>
+        </div>
+
+        <div class="story-copy">
+          <p>
+            FormSnap began with a straightforward goal: build something
+            useful that people could actually use. Not just follow a
+            tutorial, but take an idea from a first line of code to a
+            working website.
+          </p>
+          <p>
+            I used AI as a development partner to help explore ideas,
+            write and understand code, troubleshoot bugs, and improve
+            the product through testing. I kept iterating until the
+            core tools worked together in one place.
+          </p>
+          <p>
+            FormSnap is part of my journey of learning by building —
+            experimenting, solving problems, and turning concepts into
+            practical software.
+          </p>
+        </div>
+      </div>
+
+      <div class="story-note">
+        <span class="note-icon">✦</span>
+        <div>
+          <strong>Built with AI. Improved through iteration.</strong>
+          <p>
+            AI-assisted development was part of the process, alongside
+            testing, debugging, and hands-on decisions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="cta-glow"></div>
+      <span class="cta-kicker">READY WHEN YOU ARE</span>
+      <h2>Let's make those images lighter.</h2>
+      <p>
+        Open the workspace and give FormSnap a try. No account needed
+        to start using the editor.
+      </p>
+      <a class="button button-white button-large" href="editor.html">
+        Open FormSnap <span aria-hidden="true">→</span>
+      </a>
+    </section>
+
+    <section class="creator section-wrap">
+      <div class="creator-avatar">A</div>
+      <div>
+        <span class="creator-label">THE PERSON BEHIND THE PROJECT</span>
+        <h3>Built by Akshat.</h3>
+        <p>
+          A student developer learning by creating useful things,
+          one project at a time — with AI as part of the toolkit.
+        </p>
+      </div>
+      <span class="creator-sparkle" aria-hidden="true">✳</span>
+    </section>
   </main>
+
+  <footer class="footer">
+    <a class="brand footer-brand" href="index.html">
+      <span class="brand-icon">F</span>
+      <span>Form<span class="brand-accent">Snap</span></span>
+    </a>
+    <p>Made with curiosity, code, and AI-assisted development.</p>
+    <span>© <span id="current-year"></span> FormSnap</span>
+  </footer>
 </body>
 </html>

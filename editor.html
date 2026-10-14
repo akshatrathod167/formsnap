@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f7ff">
+  <meta name="description" content="Compress, resize and convert images privately in your browser with FormSnap.">
+  <title>FormSnap — Your Images, Perfectly Sized</title>
+
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("formsnap-theme");
+        const theme = saved === "light" || saved === "dark"
+          ? saved
+          : (matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark" : "light");
+
+        document.documentElement.dataset.theme = theme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="#" class="brand" aria-label="FormSnap home">
+      <span class="brand-mark">F<span>✦</span></span>
+      <span>Form<span class="brand-accent">Snap</span></span>
+    </a>
+
+    <nav class="header-actions" aria-label="Main navigation">
+      <a class="nav-link" href="index.html">← Back to Home</a>
+      <a href="#workspace" class="nav-link">Image editor</a>
+      <span class="privacy-note">
+        <span class="privacy-dot"></span>
+        100% on-device
+      </span>
+
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        type="button"
+        aria-label="Switch to dark mode"
+        title="Switch theme"
+      >
+        <span id="theme-icon" aria-hidden="true">☾</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div class="hero-pill">
+        <span class="sparkle">✦</span>
+        YOUR IMAGES, YOUR RULES
+      </div>
+
+      <h1>
+        Big quality.<br>
+        <span class="gradient-text">Smaller files.</span>
+      </h1>
+
+      <p class="hero-copy">
+        Compress, resize and convert your images in seconds.
+        No account. No uploads. Just you and your images.
+      </p>
+
+      <div class="hero-benefits">
+        <span><span class="benefit-check">✓</span> Completely free</span>
+        <span><span class="benefit-check">✓</span> Private by design</span>
+        <span><span class="benefit-check">✓</span> No API required</span>
+      </div>
+    </section>
+
+    <section class="workspace" id="workspace">
+      <div class="workspace-heading">
+        <div>
+          <span class="section-kicker">YOUR WORKSPACE</span>
+          <h2>Let's make it lighter.</h2>
+          <p>Start with an image. We'll handle the rest.</p>
+        </div>
+        <span class="step-chip">01 <span>/</span> UPLOAD</span>
+      </div>
+
+      <label
+        class="drop-zone"
+        id="upload-area"
+        for="file-input"
+        tabindex="0"
+        role="button"
+        aria-label="Choose an image or drag and drop one here"
+      >
+        <span class="upload-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 16V4m0 0L7 9m5-5 5 5"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round"/>
+          </svg>
+        </span>
+
+        <strong class="drop-title">Drop your image here</strong>
+        <span class="drop-subtitle">
+          or <span class="browse-link">browse your files</span>
+        </span>
+
+        <span class="file-hint">
+          JPG, PNG or WebP <span>·</span> Maximum 15 MB
+        </span>
+
+        <input
+          type="file"
+          id="file-input"
+          accept="image/jpeg,image/png,image/webp"
+          hidden
+        >
+      </label>
+
+      <p id="error-message" class="error-message" role="alert" hidden></p>
+      <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+
+      <div id="editor" hidden>
+        <section class="preview-section">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">YOUR IMAGE</span>
+              <h3>Preview</h3>
+            </div>
+            <button
+              id="remove-image-button"
+              class="text-button"
+              type="button"
+            >✕ Remove image</button>
+          </div>
+
+          <div class="preview-frame">
+            <img id="image-preview" alt="Selected image preview">
+          </div>
+
+          <p id="image-info" class="selected-file"></p>
+        </section>
+
+        <section class="settings-section">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">MAKE IT YOURS</span>
+              <h3>Image settings</h3>
+            </div>
+            <span class="settings-icon" aria-hidden="true">✳</span>
+          </div>
+
+          <div class="settings-grid">
+            <div class="field-group">
+              <label for="target-size">Maximum file size</label>
+              <select id="target-size">
+                <option value="51200">50 KB</option>
+                <option value="102400" selected>100 KB</option>
+                <option value="204800">200 KB</option>
+              </select>
+              <span class="field-hint">For form upload limits</span>
+            </div>
+
+            <div class="field-group">
+              <label for="output-format">Output format</label>
+              <select id="output-format">
+                <option value="image/jpeg">JPG</option>
+                <option value="image/png">PNG</option>
+                <option value="image/webp">WebP</option>
+              </select>
+              <span class="field-hint">Choose your file type</span>
+            </div>
+          </div>
+
+          <div class="resize-card">
+            <div class="section-heading resize-title-row">
+              <div>
+                <h3>Resize dimensions</h3>
+                <p>Adjust the output image in pixels.</p>
+              </div>
+
+              <label class="ratio-option" for="keep-ratio">
+                <input id="keep-ratio" type="checkbox" checked>
+                <span>Keep ratio</span>
+              </label>
+            </div>
+
+            <div class="dimension-fields">
+              <div class="field-group">
+                <label for="resize-width">Width (px)</label>
+                <input
+                  id="resize-width"
+                  type="number"
+                  min="1"
+                  max="12000"
+                  step="1"
+                  placeholder="Width"
+                >
+              </div>
+
+              <span class="dimension-times" aria-hidden="true">×</span>
+
+              <div class="field-group">
+                <label for="resize-height">Height (px)</label>
+                <input
+                  id="resize-height"
+                  type="number"
+                  min="1"
+                  max="12000"
+                  step="1"
+                  placeholder="Height"
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="results-section" aria-labelledby="results-heading">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">THE DIFFERENCE</span>
+              <h3 id="results-heading">Your results</h3>
+            </div>
+            <span class="live-badge">
+              <span class="privacy-dot"></span>
+              Live workspace
+            </span>
+          </div>
+
+          <div class="comparison-grid">
+            <div class="comparison-card">
+              <span>Original size</span>
+              <strong id="original-size">—</strong>
+            </div>
+
+            <div class="comparison-card result-card">
+              <span>Compressed size</span>
+              <strong id="compressed-size">Not compressed</strong>
+            </div>
+          </div>
+
+          <p id="compression-result" class="result-message" aria-live="polite"></p>
+          <p id="transformation-result" class="result-message" aria-live="polite"></p>
+        </section>
+
+        <div class="action-section">
+          <p class="action-caption">READY WHEN YOU ARE ✨</p>
+
+          <button
+            id="compress-button"
+            class="primary-button"
+            type="button"
+          >
+            <span>Compress Image</span>
+            <span class="button-arrow" aria-hidden="true">↗</span>
+          </button>
+
+          <button
+            id="transform-button"
+            class="secondary-button"
+            type="button"
+          >
+            Convert / Resize Image
+          </button>
+
+          <a id="download-button" class="download-button" hidden>
+            <span>Download Image</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-strip" aria-label="FormSnap benefits">
+      <article class="feature-item">
+        <span class="feature-icon">⚡</span>
+        <h3>Quick & simple</h3>
+        <p>Get your images ready in a few clicks.</p>
+      </article>
+
+      <article class="feature-item">
+        <span class="feature-icon">🔒</span>
+        <h3>Private by design</h3>
+        <p>Your images stay on your device.</p>
+      </article>
+
+      <article class="feature-item">
+        <span class="feature-icon">✦</span>
+        <h3>Free to use</h3>
+        <p>No account or paid API needed.</p>
+      </article>
+    </section>
+
+    <footer class="site-footer">
+      <a href="#" class="brand footer-brand">
+        <span class="brand-mark">F<span>✦</span></span>
+        <span>Form<span class="brand-accent">Snap</span></span>
+      </a>
+      <p>Made for lighter images and easier uploads. 💜</p>
+      <p class="footer-small">Free to use · Browser-powered · No server uploads</p>
+    </footer>
+  </main>
+</body>
+</html>
